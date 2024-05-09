@@ -1,0 +1,21 @@
+---
+- name: Install and configure Wazuh agent
+  hosts: all:!infrastructure_managers
+  become: yes
+  tasks:
+
+    - name: Install Wazuh agent
+      shell: |
+        curl -o wazuh-agent-4.7.4-1.x86_64.rpm https://packages.wazuh.com/4.x/yum/wazuh-agent-4.7.4-1.x86_64.rpm && sudo WAZUH_MANAGER='10.96.10.3' WAZUH_AGENT_GROUP='linux-servers' WAZUH_AGENT_NAME="{{ inventory_hostname }}" rpm -ihv wazuh-agent-4.7.4-1.x86_64.rpm
+      args:
+        executable: /bin/bash
+
+    - name: Reload systemd daemon
+      systemd:
+        daemon_reload: yes
+
+    - name: Enable Wazuh agent
+      systemd:
+        name: wazuh-agent
+        enabled: yes
+        state: started

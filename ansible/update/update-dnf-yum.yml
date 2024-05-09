@@ -1,0 +1,29 @@
+---
+- name: Update and upgrade dnf and yum packages
+  hosts: rhel_hosts
+  become: true
+
+  tasks:
+    - name: Update packages with yum
+      when: ansible_pkg_mgr == 'yum'
+      ansible.builtin.yum:
+        name: "*"
+        state: latest # noqa: package-latest
+
+    - name: Upgrade packages with yum
+      when: ansible_pkg_mgr == 'yum'
+      ansible.builtin.yum:
+        name: "*"
+        state: latest # noqa: package-latest
+        exclude: kernel*
+
+    - name: Update all packages
+      dnf:
+        name: "*"
+        state: latest
+
+    - name: Upgrade all packages
+      dnf:
+        name: "*"
+        state: latest
+        allow_downgrade: yes

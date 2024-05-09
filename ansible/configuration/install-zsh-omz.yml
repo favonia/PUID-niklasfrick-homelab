@@ -1,0 +1,75 @@
+---
+- name: Configure Zsh and omz with plugins and set as default shell
+  hosts: all
+  become: true
+
+  vars_prompt:
+    - name: Username
+      prompt: enter user id for whom you want to install zsh and omz
+      private: no
+
+  tasks:
+    - name: Check if Zsh is installed
+      command: "rpm -q zsh"
+      register: zsh_installed
+      ignore_errors: yes
+
+    - name: Install Zsh if not already installed
+      dnf:
+        name: zsh
+        state: present
+      when: zsh_installed.rc != 0
+
+    - name: Copy Zsh configuration template
+      template:
+        src: ./templates/zshrc-omz.j2
+        dest: "/home/{{ Username }}/.zshrc"
+
+    - name: Copy Zsh env configuration template
+      template:
+        src: ./templates/zshenv.j2
+        dest: "/home/{{ Username }}/.zshenv"
+
+    - name: Set Zsh as default shell for user {{ Username }}
+      user:
+        name: "{{ Username }}"
+        shell: /bin/zsh
+      become: true
+
+    - name: Check if .oh-my-zsh directory exists
+      stat:
+        path: /home/{{ Username }}/.oh-my-zsh
+      register: oh_my_zsh_stat
+
+    - name: Remove .oh-my-zsh directory if it exists
+      file:
+        path: /home/{{ Username }}/.oh-my-zsh
+        state: absent
+      when: oh_my_zsh_stat.stat.exists
+
+    - name: Download Oh My Zsh installation script
+      get_url:
+        url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+        dest: /tmp/install_ohmyzsh.sh
+        mode: "0755"
+
+    - name: Run Oh My Zsh installation script
+      command: "sh /tmp/install_ohmyzsh.sh --unattended --keep-zshrc"
+      become: true
+      become_user: "{{ Username }}"
+
+    - name: Clone zsh-autosuggestions plugin
+      git:
+        repo: https://github.com/zsh-users/zsh-autosuggestions
+        dest: /home/{{ Username }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+        clone: yes
+      become: true
+      become_user: "{{ Username }}"
+
+    - name: Clone zsh-syntax-highlighting plugin
+      git:
+        repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+        dest: /home/{{ user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+        clone: yes
+      become: true
+      become_user: "{{ Username }}"

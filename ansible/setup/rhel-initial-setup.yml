@@ -1,0 +1,9 @@
+- import_playbook: ../update/update-dnf-yum.yml
+
+- import_playbook: ../configuration/rhel-install-packages.yml
+
+- import_playbook: ../configuration/install-zsh.yml
+
+- import_playbook: ../configuration/set-password.yml
+
+- import_playbook: rhel-wazuh-agent-install.yml

@@ -1,0 +1,30 @@
+---
+- name: Initial RHEL Hosts config
+  hosts: rhel_hosts
+  become: true
+
+  tasks:
+    - name: Enable COPR repository
+      dnf:
+        name: "dnf-plugins-core"
+        state: present
+
+    - name: Enable COPR repository
+      command: "dnf copr enable -y tkbcopr/fd"
+
+    - name: Enable CodeReady Builder repository
+      command: "subscription-manager repos --enable codeready-builder-for-rhel-9-{{ ansible_architecture }}-rpms"
+
+    - name: Install EPEL repository package
+      command: "dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm -y"
+
+    - name: Install additional packages
+      dnf:
+        name:
+          - zsh
+          - nano
+          - git
+          - wget
+          - fd
+          - colordiff
+        state: present
