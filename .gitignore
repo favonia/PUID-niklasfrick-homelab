@@ -25,6 +25,7 @@ Temporary Items
 # Direnv files
 .direnv
 .envrc
+.env_decrypted
 
 # Editor specific files and folders
 .idea
@@ -64,3 +65,5 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+files/
