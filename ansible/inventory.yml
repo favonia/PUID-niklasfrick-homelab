@@ -11,3 +11,7 @@ k8s:
     k8s_workers:
       hosts:
         k8s-worker[1:2].local.zazen.li
+
+plex:
+  hosts:
+    plex.local.zazen.li
