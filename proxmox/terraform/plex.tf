@@ -18,7 +18,6 @@ resource "proxmox_vm_qemu" "plex" {
     pool = "pbs-backup"
     tags = "pbs-backup"
     qemu_os = "l26"
-    bios = "ovmf"
 
     # VM Advanced General Settings
     onboot = true 
