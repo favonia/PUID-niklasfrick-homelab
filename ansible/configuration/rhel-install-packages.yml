@@ -1,6 +1,6 @@
 ---
 - name: Initial RHEL Hosts config
-  hosts: rhel_hosts
+  hosts: all
   become: true
 
   tasks:

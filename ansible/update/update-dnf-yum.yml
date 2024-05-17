@@ -1,6 +1,6 @@
 ---
 - name: Update and upgrade dnf and yum packages
-  hosts: rhel_hosts
+  hosts: all
   become: true
 
   tasks:
