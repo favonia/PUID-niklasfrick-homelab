@@ -26,6 +26,7 @@ Temporary Items
 .direnv
 .envrc
 .env_decrypted
+.env.old
 
 # Editor specific files and folders
 .idea
