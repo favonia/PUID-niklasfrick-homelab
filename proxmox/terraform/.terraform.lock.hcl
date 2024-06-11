@@ -6,6 +6,7 @@ provider "registry.terraform.io/ansible/ansible" {
   constraints = ">= 1.2.0"
   hashes = [
     "h1:9tOYF6zF3ehseoukP2IgFAAOMCInAzeZ5y67xfMfx9U=",
+    "h1:Ki8m3lAW3l6f6tPktHiyecEzOydKACJv/vMriuLDWhE=",
     "zh:0307c80c6a890b629e866318688ac6c73acd99dfd61c371e9036feb001baff45",
     "zh:28bddf36dce285d79391b7bbceae08e33533da4412f9c9434eb769a1e75c3992",
     "zh:3979596203cc64fd602a1e03cca198c2071f85ec29bf8c8816b35cc74b271411",
@@ -29,6 +30,7 @@ provider "registry.terraform.io/paultyng/unifi" {
   constraints = "0.41.0"
   hashes = [
     "h1:v4tano7Ef7U+tiQb/N6iE+G0t8PN0xHxhCkTAZYJirU=",
+    "h1:vE4C9E7NtYUC7otQrAvNNkDFBHqEMxkUlcqJhLWchLY=",
     "zh:03ddd3aee05a08e1446f75a7b3f52810181d3307728cba08ce8fb67f109a9c00",
     "zh:11b14b79ad02b0a55fd6116b10c0eb6fab432dd7d1f3527af0e2055adf292451",
     "zh:18c0eb19889927f115a1e05d64f59b4e8d530ccdf1a8b574940a86be20973564",
@@ -51,6 +53,7 @@ provider "registry.terraform.io/thegameprofi/proxmox" {
   constraints = "2.9.15"
   hashes = [
     "h1:0MoTtUgGCadvXy9M18bf/khRn+N3pj7VyNqTFnDaCiI=",
+    "h1:PPrRxolUV0bwNvWACdbcW0hVjpOcNQkiPKJJk0kcgoM=",
     "zh:1ffee851e14bd23547dcd0b72d19f703eb8b4f76dcce7a2c65d2eaaab0dbd104",
     "zh:295f79973e0d3cfe6b5d8cf43d35b88e934137b1333da90dc16076c90b6e2702",
     "zh:29fa35ab8b53e02060f0d33dc895a5e866bb02c519d89d32b25d3b6ca7d8617a",
