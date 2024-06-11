@@ -18,4 +18,4 @@ plex:
 
 k3s:
   hosts:
-    k3s-0[1:3].local.zazen.li
+    k3s-0[1:4].local.zazen.li
