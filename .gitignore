@@ -68,3 +68,5 @@ override.tf.json
 terraform.rc
 
 files/
+
+secret*
