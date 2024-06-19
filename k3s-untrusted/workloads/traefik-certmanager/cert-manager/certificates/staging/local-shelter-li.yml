@@ -1,0 +1,15 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: local-shelter-li
+  namespace: default
+spec:
+  secretName: local-shelter-li-staging-tls
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  commonName: "*.local.shelter.li"
+  dnsNames:
+  - "local.shelter.li"
+  - "*.local.shelter.li"
