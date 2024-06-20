@@ -9,6 +9,6 @@ spec:
   selector:
     app: overseerr
   ports:
-    - name: http
-      port: 80
+    - name: tcp
+      port: 5055
       targetPort: 5055
