@@ -51,8 +51,8 @@ resource "proxmox_vm_qemu" "k3s_02" {
     ipconfig0 = "ip=10.96.20.12/24,gw=10.96.20.1"
     nameserver = "10.96.20.1"
     searchdomain ="local.zazen.li"
-    ciuser = var.TF_VAR_ci_user
-    cipassword = var.TF_VAR_ci_password
+    ciuser = var.ci_user
+    cipassword = var.ci_password
     
     sshkeys = <<EOF
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIveS+0VyQkUC+y/FECgIGPxphMoO+2/Khoy7vR4LzDn Niklas-MBP
