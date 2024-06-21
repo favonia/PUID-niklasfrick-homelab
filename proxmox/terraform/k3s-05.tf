@@ -3,18 +3,18 @@
 # Create VM on Proxmox from a full clone
 ####################################################
 
-# VM Name: k3s-01.home.balzers.xyz
-# Description: Trusted Server VLAN k3s Server 1
-# IP Address: 10.96.10.20/24
+# VM Name: k3s-05.home.balzers.xyz
+# Description: Trusted Server VLAN k3s Server 5
+# IP Address: 10.96.10.24/24
 # VLAN: 961 (Trusted Server VLAN)
 
-resource "proxmox_vm_qemu" "k3s_01" {
+resource "proxmox_vm_qemu" "k3s_05" {
     
     # VM General Settings
     target_node = "pve"
-    vmid = "102"
-    name = "k3s-01.home.balzers.xyz"
-    desc = "Trusted Server VLAN k3s Server 1"
+    vmid = "106"
+    name = "k3s-05.home.balzers.xyz"
+    desc = "Trusted Server VLAN k3s Server 5"
     pool = "pbs-backup"
     tags = "pbs-backup"
     qemu_os = "l26"
@@ -34,7 +34,7 @@ resource "proxmox_vm_qemu" "k3s_01" {
     cpu = "host"    
     
     # VM Memory Settings
-    memory = 2048
+    memory = 4096
 
     scsihw = "virtio-scsi-single"
 
@@ -48,7 +48,7 @@ resource "proxmox_vm_qemu" "k3s_01" {
     # VM Cloud-Init Settings
     os_type = "cloud-init"
 
-    ipconfig0 = "ip=10.96.10.20/24,gw=10.96.10.1"
+    ipconfig0 = "ip=10.96.10.24/24,gw=10.96.10.1"
     nameserver = "10.96.10.1"
     searchdomain ="home.balzers.xyz"
     ciuser = var.ci_user
@@ -59,17 +59,17 @@ resource "proxmox_vm_qemu" "k3s_01" {
     EOF
 }
 
-resource "unifi_user" "k3s_01_trusted" {
-  mac  = proxmox_vm_qemu.k3s_01.network[0].macaddr
-  name = proxmox_vm_qemu.k3s_01.name
-  note = proxmox_vm_qemu.k3s_01.desc
-  local_dns_record = proxmox_vm_qemu.k3s_01.name
+resource "unifi_user" "k3s_05_trusted" {
+  mac  = proxmox_vm_qemu.k3s_05.network[0].macaddr
+  name = proxmox_vm_qemu.k3s_05.name
+  note = proxmox_vm_qemu.k3s_05.desc
+  local_dns_record = proxmox_vm_qemu.k3s_05.name
 
-  fixed_ip   = proxmox_vm_qemu.k3s_01.default_ipv4_address
-  network_id = proxmox_vm_qemu.k3s_01.network[0].tag
+  fixed_ip   = proxmox_vm_qemu.k3s_05.default_ipv4_address
+  network_id = proxmox_vm_qemu.k3s_05.network[0].tag
 }
 
-resource "ansible_host" "k3s_01" {
-  name = proxmox_vm_qemu.k3s_01.name
+resource "ansible_host" "k3s_05" {
+  name = proxmox_vm_qemu.k3s_05.name
   groups = ["rhel_hosts", "linux", "k3s-trusted"]
 }

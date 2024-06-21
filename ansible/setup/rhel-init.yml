@@ -5,5 +5,3 @@
 - import_playbook: ../configuration/install-zsh.yml
 
 - import_playbook: ../configuration/set-password.yml
-
-- import_playbook: rhel-wazuh-agent-install.yml
