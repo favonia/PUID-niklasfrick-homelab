@@ -22,26 +22,26 @@ terraform {
     }
 }
 
-variable "proxmox_api_url" {
+variable "TF_VAR_proxmox_api_url" {
     type = string
 }
 
-variable "proxmox_api_token_id" {
-    type = string
-    sensitive = true
-}
-
-variable "proxmox_api_token_secret" {
+variable "TF_VAR_proxmox_api_token_id" {
     type = string
     sensitive = true
 }
 
-variable "ci_user" {
+variable "TF_VAR_proxmox_api_token_secret" {
     type = string
     sensitive = true
 }
 
-variable "ci_password" {
+variable "TF_VAR_ci_user" {
+    type = string
+    sensitive = true
+}
+
+variable "TF_VAR_ci_password" {
     type = string
     sensitive = true
 }
@@ -66,9 +66,9 @@ variable "unifi_insecure" {
 
 provider "proxmox" {
 
-    pm_api_url = var.proxmox_api_url
-    pm_api_token_id = var.proxmox_api_token_id
-    pm_api_token_secret = var.proxmox_api_token_secret
+    pm_api_url = var.TF_VAR_proxmox_api_url
+    pm_api_token_id = var.TF_VAR_proxmox_api_token_id
+    pm_api_token_secret = var.TF_VAR_proxmox_api_token_secret
 }
 
 provider "unifi" {
