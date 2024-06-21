@@ -2,20 +2,10 @@ infrastructure_managers:
   hosts:
     im.local.zazen.li
 
-k8s:
-  children:
-    k8s_masters:
-      hosts:
-        k8s-master.local.zazen.li
-
-    k8s_workers:
-      hosts:
-        k8s-worker[1:2].local.zazen.li
-
 plex:
   hosts:
     plex.local.zazen.li
 
-k3s:
+k3s-trusted:
   hosts:
-    k3s-0[1:4].local.zazen.li
+    k3s-0[1:6].home.balzers.xyz

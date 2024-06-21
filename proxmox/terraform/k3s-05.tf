@@ -63,7 +63,7 @@ resource "unifi_user" "k3s_05_trusted" {
   mac  = proxmox_vm_qemu.k3s_05.network[0].macaddr
   name = proxmox_vm_qemu.k3s_05.name
   note = proxmox_vm_qemu.k3s_05.desc
-  local_dns_record = proxmox_vm_qemu.k3s_05.name
+  # local_dns_record = proxmox_vm_qemu.k3s_05.name
 
   fixed_ip   = proxmox_vm_qemu.k3s_05.default_ipv4_address
   network_id = proxmox_vm_qemu.k3s_05.network[0].tag
