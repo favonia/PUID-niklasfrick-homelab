@@ -69,4 +69,4 @@ terraform.rc
 
 files/
 
-secret*
+*secret*
