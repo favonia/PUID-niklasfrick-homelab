@@ -1,0 +1,26 @@
+---
+- name: Configure iSCSI and NFS
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install iscsi-initiator-utils without running scripts
+      command: yum --setopt=tsflags=noscripts install -y iscsi-initiator-utils
+
+    - name: Set the iSCSI Initiator Name
+      shell: echo "InitiatorName=$(/sbin/iscsi-iname)" > /etc/iscsi/initiatorname.iscsi
+
+    - name: Enable the iscsid service
+      command: systemctl enable iscsid
+
+    - name: Start the iscsid service
+      command: systemctl start iscsid
+    
+    - name: Install NFS utilities
+      yum:
+        name: nfs-utils
+        state: present
+
+    - name: Install cryptsetup
+      yum:
+        name: cryptsetup
+        state: present

@@ -1,0 +1,15 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: home-balzers-xyz
+  namespace: default
+spec:
+  secretName: home-balzers-xyz-staging-tls
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  commonName: "*.home.balzers.xyz"
+  dnsNames:
+  - "home.balzers.xyz"
+  - "*.home.balzers.xyz"

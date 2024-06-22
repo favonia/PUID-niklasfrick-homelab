@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bind9-config
+data:
+  named.conf: |
+    // Global options
+    acl internal {
+      10.0.0.0/8;
+    };
+
+    options {
+        directory "/var/cache/bind";
+        allow-query { internal; };
+        allow-recursion { any; };
+        forwarders {
+          1.1.1.1;
+          1.0.0.1;
+        };
+    };
+
+    zone "home.balzers.xyz" IN {
+        type master;
+        file "/var/lib/bind/home.balzers.xyz.zone";
+    };
+
+  home.balzers.xyz.zone: |
+    $TTL 3600
+    $ORIGIN home.balzers.xyz.
+
+    @       IN      SOA     ns.home.balzers.xyz. info.home.balzers.xyz (
+                                2024062201  ; serial
+                                3600       ; refresh (1 hour)
+                                600        ; retry (10 minutes)
+                                86400      ; expire (1 day)
+                                3600       ; minimum (1 hour)
+                                )
+
+            ; NS Records
+            IN      NS      ns.home.balzers.xyz.
+
+            ; A Records
+    ns      IN      A       10.96.10.80
+
+            ; Additional A Records
+    nas-01                IN      A       10.96.10.2
+    pve-01                IN      A       10.96.0.10
+    pbs-01                IN      A       10.96.10.11
+    k3s-01                IN      A       10.96.10.20
+    k3s-02                IN      A       10.96.10.21
+    k3s-03                IN      A       10.96.10.22
+    k3s-04                IN      A       10.96.10.23
+    k3s-05                IN      A       10.96.10.24
+    k3s-06                IN      A       10.96.10.25
+    plex-01               IN      A       10.96.20.10
+    untrusted-srv-temp    IN      A       10.96.20.15
+    traefik               IN      A       10.96.10.82
