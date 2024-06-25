@@ -59,4 +59,5 @@ data:
             ; k3s-trusted traefik A Records
     traefik               IN      A       10.96.10.82
     longhorn              IN      A       10.96.10.82
+    arr                   IN      A       10.96.10.82
     prowlarr              IN      A       10.96.10.82

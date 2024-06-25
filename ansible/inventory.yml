@@ -4,7 +4,7 @@ infrastructure_managers:
 
 plex:
   hosts:
-    plex.local.zazen.li
+    plex-01.home.balzers.xyz
 
 k3s-trusted:
   hosts:

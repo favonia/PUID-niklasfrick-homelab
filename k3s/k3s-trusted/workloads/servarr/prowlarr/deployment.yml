@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: prowlarr
   namespace: prowlarr
@@ -26,6 +26,16 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /config
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 9696
+          initialDelaySeconds: 60
+          periodSeconds: 30
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "1"
       volumes:
       - name: data
         persistentVolumeClaim:

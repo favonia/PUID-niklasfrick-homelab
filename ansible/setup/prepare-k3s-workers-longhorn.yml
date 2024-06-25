@@ -16,11 +16,11 @@
       command: systemctl start iscsid
     
     - name: Install NFS utilities
-      yum:
+      dnf:
         name: nfs-utils
         state: present
 
     - name: Install cryptsetup
-      yum:
+      dnf:
         name: cryptsetup
         state: present
