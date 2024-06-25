@@ -1,0 +1,14 @@
+---
+- name: Shutdown
+  hosts: all
+  become: yes 
+  tasks:
+    - name: Shut down the server
+      ansible.builtin.command: /sbin/shutdown -h now
+      async: 1
+      poll: 0
+      ignore_errors: true
+
+    - name: Wait for server to shut down
+      pause:
+        minutes: 1

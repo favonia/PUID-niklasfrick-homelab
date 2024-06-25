@@ -1,0 +1,10 @@
+---
+- name: Install nfs-utils on all managed nodes
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Ensure nfs-utils is installed
+      dnf:
+        name: nfs-utils
+        state: present
