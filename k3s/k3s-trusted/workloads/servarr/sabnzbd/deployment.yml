@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sabnzbd
+  namespace: sabnzbd
+  labels:
+    app: sabnzbd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sabnzbd
+  template:
+    metadata:
+      labels:
+        app: sabnzbd
+    spec:
+      containers:
+      - name: sabnzbd
+        image: linuxserver/sabnzbd:latest
+        envFrom:
+        - configMapRef:
+            name: sabnzbd-env
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: data
+          mountPath: /config
+        - name: downloads
+          mountPath: /downloads
+          subPath: usenet
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 30
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "1"
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: sabnzbd-data
+      - name: downloads
+        nfs: 
+          server: 10.96.10.2
+          path: /mnt/nas-b01-pool1/data/downloads

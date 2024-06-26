@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radarr
+  namespace: radarr
+  labels:
+    app: radarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: radarr
+  template:
+    metadata:
+      labels:
+        app: radarr
+    spec:
+      containers:
+      - name: radarr
+        image: linuxserver/radarr:latest
+        envFrom:
+        - configMapRef:
+            name: radarr-env
+        ports:
+        - containerPort: 7878
+        volumeMounts:
+        - name: data
+          mountPath: /config
+        - name: downloads
+          mountPath: /downloads
+        - name: media
+          mountPath: /media
+          subPath: movies
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 7878
+          initialDelaySeconds: 60
+          periodSeconds: 30
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "1"
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: radarr-data
+      - name: downloads
+        nfs: 
+          server: 10.96.10.2
+          path: /mnt/nas-b01-pool1/data/downloads
+      - name: media
+        nfs:
+          server: 10.96.10.2
+          path: /mnt/nas-b01-pool1/media

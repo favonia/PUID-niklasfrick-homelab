@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarr
+  namespace: sonarr
+  labels:
+    app: sonarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonarr
+  template:
+    metadata:
+      labels:
+        app: sonarr
+    spec:
+      containers:
+      - name: sonarr
+        image: linuxserver/sonarr:latest
+        envFrom:
+        - configMapRef:
+            name: sonarr-env
+        ports:
+        - containerPort: 8989
+        volumeMounts:
+        - name: data
+          mountPath: /config
+        - name: downloads
+          mountPath: /downloads
+        - name: media
+          mountPath: /media
+          subPath: tv
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8989
+          initialDelaySeconds: 60
+          periodSeconds: 30
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "1"
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: sonarr-data
+      - name: downloads
+        nfs: 
+          server: 10.96.10.2
+          path: /mnt/nas-b01-pool1/data/downloads
+      - name: media
+        nfs:
+          server: 10.96.10.2
+          path: /mnt/nas-b01-pool1/media
