@@ -11,7 +11,7 @@
 resource "proxmox_vm_qemu" "infrastructure_manager" {
     
     # VM General Settings
-    target_node = "pve"
+    target_node = "pve-01"
     vmid = "100"
     name = "im.local.zazen.li"
     desc = "Trusted Server VLAN Infrastructure Management Server"

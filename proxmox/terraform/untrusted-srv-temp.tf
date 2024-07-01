@@ -11,7 +11,7 @@
 resource "proxmox_vm_qemu" "untrusted_srv_temp" {
     
     # VM General Settings
-    target_node = "pve"
+    target_node = "pve-01"
     vmid = "205"
     name = "untrusted-srv-temp.home.balzers.xyz"
     desc = "Untrusted Server VLAN k3s Cluster Node 1"

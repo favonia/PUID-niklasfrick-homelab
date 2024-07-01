@@ -11,7 +11,7 @@
 resource "proxmox_vm_qemu" "k3s_04" {
     
     # VM General Settings
-    target_node = "pve"
+    target_node = "pve-01"
     vmid = "105"
     name = "k3s-04.home.balzers.xyz"
     desc = "Trusted Server VLAN k3s Server 4"

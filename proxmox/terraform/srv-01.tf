@@ -11,7 +11,7 @@
 resource "proxmox_vm_qemu" "srv_01" {
     
     # VM General Settings
-    target_node = "pve"
+    target_node = "pve-01"
     vmid = "201"
     name = "srv-01.home.balzers.xyz"
     desc = "Untrusted Server VLAN Server 1"
