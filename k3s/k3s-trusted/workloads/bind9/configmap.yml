@@ -54,6 +54,7 @@ data:
     k3s-05                IN      A       10.96.10.24
     k3s-06                IN      A       10.96.10.25
     plex-01               IN      A       10.96.20.10
+    srv-01                IN      A       10.96.20.11
     untrusted-srv-temp    IN      A       10.96.20.15
 
             ; k3s-trusted traefik A Records

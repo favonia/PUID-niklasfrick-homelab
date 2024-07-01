@@ -9,3 +9,7 @@ plex:
 k3s-trusted:
   hosts:
     k3s-0[1:6].home.balzers.xyz
+
+srv-untrusted:
+  hosts:
+    srv-01.home.balzers.xyz
