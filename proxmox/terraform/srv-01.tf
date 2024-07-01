@@ -34,7 +34,7 @@ resource "proxmox_vm_qemu" "srv_01" {
     cpu = "host"    
     
     # VM Memory Settings
-    memory = 4096
+    memory = 8192
 
     scsihw = "virtio-scsi-single"
 

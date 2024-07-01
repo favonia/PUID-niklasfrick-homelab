@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudflare-ddns
+  namespace: cloudflare-ddns
+  labels:
+    app: cloudflare-ddns
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cloudflare-ddns
+  template:
+    metadata:
+      labels:
+        app: cloudflare-ddns
+    spec:
+      hostNetwork: true
+      restartPolicy: Always
+      containers:
+        - name: cloudflare-ddns
+          image: favonia/cloudflare-ddns:latest
+          securityContext:
+            capabilities:
+              add: ["SETUID", "SETGID"]
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: CF_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: cloudflare-ddns-secret
+                  key: CF_API_TOKEN
+            - name: DOMAINS
+              value: "valheim.balzers.xyz"
+            - name: PROXIED
+              value: "false"

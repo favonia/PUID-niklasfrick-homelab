@@ -5,10 +5,22 @@ metadata:
   namespace: watchlistarr
 data:
   SONARR_BASE_URL: "sonarr.sonarr.svc.cluster.local:8989"
-  SONARR_API_KEY: ""
+  SONARR_API_KEY:
+    valueFrom:
+      secretKeyRef:
+        name: watchlistarr-secret
+        key: SONARR_API_KEY
   SONARR_QUALITY_PROFILE: "WEB-DL (1080p/720p)"
   RADARR_BASE_URL: "radarr.radarr.svc.cluster.local:7878"
-  RADARR_API_KEY: ""
+  RADARR_API_KEY: 
+    valueFrom:
+        secretKeyRef:
+          name: watchlistarr-secret
+          key: RADARR_API_KEY
   RADARR_QUALITY_PROFILE: "HD Bluray + WEB"
   PLEX_WATCHLIST_URL_1: "10.96.20.10:32400"
-  PLEX_TOKEN: ""
+  PLEX_TOKEN: 
+    valueFrom:
+        secretKeyRef:
+          name: watchlistarr-secret
+          key: PLEX_TOKEN

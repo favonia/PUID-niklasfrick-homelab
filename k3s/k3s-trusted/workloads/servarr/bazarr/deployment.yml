@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bazarr
+  namespace: bazarr
+  labels:
+    app: bazarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bazarr
+  template:
+    metadata:
+      labels:
+        app: bazarr
+    spec:
+      containers:
+      - name: bazarr
+        image: linuxserver/bazarr:latest
+        envFrom:
+        - configMapRef:
+            name: bazarr-env
+        ports:
+        - containerPort: 6767
+        volumeMounts:
+        - name: data
+          mountPath: /config
+        - name: media
+          mountPath: /movies
+          subPath: movies
+        - name: media
+          mountPath: /tv
+          subPath: tv
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 6767
+          initialDelaySeconds: 60
+          periodSeconds: 30
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "1"
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: bazarr-data
+      - name: media
+        nfs:
+          server: 10.96.10.2
+          path: /mnt/nas-b01-pool1/media
