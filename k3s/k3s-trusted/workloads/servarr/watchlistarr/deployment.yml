@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: watchlistarr
+  namespace: watchlistarr
+  labels:
+    app: watchlistarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: watchlistarr
+  template:
+    metadata:
+      labels:
+        app: watchlistarr
+    spec:
+      containers:
+      - name: watchlistarr
+        image: nylonee/watchlistarr
+        envFrom:
+        - configMapRef:
+            name: watchlistarr-env
+        volumeMounts:
+        - name: config
+          mountPath: /app/config
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "1"
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: watchlistarr-data
