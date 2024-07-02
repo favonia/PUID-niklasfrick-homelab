@@ -18,6 +18,7 @@ spec:
       containers:
       - name: bazarr
         image: linuxserver/bazarr:latest
+        imagePullPolicy: Always
         envFrom:
         - configMapRef:
             name: bazarr-env

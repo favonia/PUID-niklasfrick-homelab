@@ -18,6 +18,7 @@ spec:
       containers:
       - name: sabnzbd
         image: linuxserver/sabnzbd:latest
+        imagePullPolicy: Always
         envFrom:
         - configMapRef:
             name: sabnzbd-env

@@ -20,6 +20,7 @@ spec:
       containers:
         - name: cloudflare-ddns
           image: favonia/cloudflare-ddns:latest
+          imagePullPolicy: Always
           securityContext:
             capabilities:
               add: ["SETUID", "SETGID"]

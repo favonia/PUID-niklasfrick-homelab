@@ -18,6 +18,7 @@ spec:
       containers:
       - name: radarr
         image: linuxserver/radarr:latest
+        imagePullPolicy: Always
         envFrom:
         - configMapRef:
             name: radarr-env

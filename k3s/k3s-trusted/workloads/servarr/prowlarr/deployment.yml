@@ -18,6 +18,7 @@ spec:
       containers:
       - name: prowlarr
         image: linuxserver/prowlarr:latest
+        imagePullPolicy: Always
         envFrom:
         - configMapRef:
             name: prowlarr-env

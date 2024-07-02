@@ -18,6 +18,7 @@ spec:
       containers:
       - name: sonarr
         image: linuxserver/sonarr:latest
+        imagePullPolicy: Always
         envFrom:
         - configMapRef:
             name: sonarr-env

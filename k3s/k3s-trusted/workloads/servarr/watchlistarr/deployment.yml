@@ -18,17 +18,50 @@ spec:
       containers:
       - name: watchlistarr
         image: nylonee/watchlistarr
-        envFrom:
-        - configMapRef:
-            name: watchlistarr-env
-        volumeMounts:
-        - name: config
-          mountPath: /app/config
-      dnsConfig:
-        options:
-          - name: ndots
-            value: "1"
-      volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: watchlistarr-data
+        imagePullPolicy: Always
+        env:
+        - name: SONARR_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: watchlistarr-config
+              key: SONARR_BASE_URL
+        - name: SONARR_QUALITY_PROFILE
+          valueFrom:
+            configMapKeyRef:
+              name: watchlistarr-config
+              key: SONARR_QUALITY_PROFILE
+        - name: SONARR_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: watchlistarr-secrets
+              key: SONARR_API_KEY
+        - name: RADARR_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: watchlistarr-config
+              key: RADARR_BASE_URL
+        - name: RADARR_QUALITY_PROFILE
+          valueFrom:
+            configMapKeyRef:
+              name: watchlistarr-config
+              key: RADARR_QUALITY_PROFILE
+        - name: RADARR_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: watchlistarr-secrets
+              key: RADARR_API_KEY
+        - name: PLEX_WATCHLIST_URL_1
+          valueFrom:
+            configMapKeyRef:
+              name: watchlistarr-config
+              key: PLEX_WATCHLIST_URL_1
+        - name: PLEX_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: watchlistarr-secrets
+              key: PLEX_TOKEN
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: watchlistarr-config
+              key: LOG_LEVEL
